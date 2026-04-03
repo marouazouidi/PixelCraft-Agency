@@ -5,11 +5,11 @@ require_once __DIR__ .'/db.php';
 class Student{
     private $conn;
 
-    private static $table = "students";
     private $id;
     private $name;
     private $country;
     private $level;
+    private $user_id;
 
     public function getId(){
         return $this->id;
@@ -24,6 +24,10 @@ class Student{
         return $this->level;
     }
 
+    public function getUserId(){
+        return $this->user_id;
+    }
+
 
     public function __construct(){
         $database = new Db();
@@ -32,7 +36,7 @@ class Student{
 
     public function getAll()
     {
-        $sql = "SELECT * FROM " . static::$table;
+        $sql = "SELECT * FROM  students";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
@@ -40,16 +44,26 @@ class Student{
     }
 
     
-    public function create(){
+    public function findById($id){
+        $sql = "SELECT * 
+                FROM students 
+                WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(["id" => $id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function findByUserId($user_id){
+        $sql = "SELECT * 
+                FROM students 
+                WHERE user_id = :user_id ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(["user_id" => $user_id]);
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
 
     }
 
-    public function edit($id){
-
-    }
-
-    public function delete($id){
-
-    }
 }
 ?>

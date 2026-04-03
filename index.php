@@ -8,6 +8,5 @@ $lessons = $gerant->index();
 
 $student = new StudentController();
 $students = $student->index();
-require_once __DIR__ . '/APP/views/admin/dashboard.php'
 
 ?>

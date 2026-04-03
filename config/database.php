@@ -1,7 +1,7 @@
 <?php 
-define("host","localhost");
-define("dbname","pixelcraft-agency");
-define("user","root");
-define("pass","")
+define("DB_HOST","localhost");
+define("DB_NAME","pixelcraft-agency");
+define("DB_USER","root");
+define("DB_PASS","")
 
 ?>

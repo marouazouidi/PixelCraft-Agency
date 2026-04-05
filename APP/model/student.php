@@ -60,10 +60,31 @@ class Student{
                 WHERE user_id = :user_id ";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(["user_id" => $user_id]);
-        
+
         return $stmt->fetch(PDO::FETCH_ASSOC);
 
     }
 
+    public function createStudent($name, $country, $level, $user_id){
+        $sql = 'INSERT INTO students (name, country, level, user_id)
+                VALUES (?,?,?,?)';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$name, $country, $level, $user_id]);
+    }
+
+    public function updateLevel($id, $level){
+        $sql = 'UPDATE students
+                SET level = ?
+                WHERE id =?';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id, $level]);
+    }
+
+    public function deleteStudent($id){
+        $sql = 'DELETE students
+                WHERE id =?';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+    }
 }
 ?>

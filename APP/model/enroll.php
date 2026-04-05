@@ -46,6 +46,30 @@ class Enroll{
                 FROM enrollments e
                 JOIN students s ON e.student_id = s.id
                 JOIN lessons l ON e.e.lesson_id = l.id';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+    }
+
+    public function createEnroll($student_id, $lesson_id){
+        $sql = 'INSERT INTO enrollments (student_id,	lesson_id, payment)
+                VALUE(:student_id, :lesson_id, :payment)';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'student_id' => $student_id,
+            'lesson_id' => $lesson_id,
+            'payment' => 'En attente',
+        ]);
+    }
+
+    public function updatePayment($id, $payment){
+        $sql = 'UPDATE enrollments 
+                SET payment = :payment
+                WHERE id = :id';
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            'id' => $id,
+            'payment' => $payment,
+        ]);
     }
 
 }
